@@ -30,8 +30,8 @@ def Registration(request):
         serializer = partnerSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=True)
-        return Response(serializer.errors, status=False)
+            return Response({'message': 'True'},serializer.data, status=status.HTTP_201_CREATED)
+        return Response({'message': 'False'},serializer.errors,status=status.HTTP_400_BAD_REQUEST)
     
 @api_view(['GET', 'PUT', 'DELETE'])
 def partnerlogin(request,pk):
