@@ -28,12 +28,15 @@ def Registration(request):
 
     elif request.method == 'POST':
         serializer = partnerSerializer(data=request.data)
-        try:
+        value = request.data['phonenumber']
+       
+        if partner.objects.filter(phonenumber=value).exists():
+            # try:
             if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-        except:
-            return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+                    serializer.save()
+                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+            # except:
+            return Response({"data": "Phonenumber exists"})
     
 @api_view(['GET', 'PUT', 'DELETE'])
 def partnerlogin(request,pk):
