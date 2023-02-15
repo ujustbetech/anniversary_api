@@ -31,7 +31,7 @@ def Registration(request):
         if serializer.is_valid():
             serializer.save()
             content = {'Status': 'True'}
-            return Response(serializer.data, status=status.HTTP_201_CREATED,content)
+            return Response(serializer.data, content)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
     
 @api_view(['GET', 'PUT', 'DELETE'])
