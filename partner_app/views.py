@@ -33,7 +33,7 @@ def Registration(request):
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         except:
-            return Response(serializer.errors, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+            return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
     
 @api_view(['GET', 'PUT', 'DELETE'])
 def partnerlogin(request,pk):
