@@ -14,8 +14,8 @@
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from partner_app.models import partner,postimage
-from partner_app.serializers import partnerSerializer,postimageSerializer
+from partner_app.models import partner, postimage
+from partner_app.serializers import partnerSerializer, postimageSerializer
 
 
 @api_view(['GET', 'POST'])
@@ -35,19 +35,35 @@ def Registration(request):
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response({"data": "Invalid Input"})
        
-    
+        # print(value)
+        # exp=partner.objects.get(pk=value)
+        # print(exp)
+        
+        # if value == exp:
+        #     return Response({"data": "Phonenumber exists"})
+        # else:
+        #     if serializer.is_valid():
+        #         serializer.save()
+        #         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
 @api_view(['GET', 'PUT', 'DELETE'])
-def partnerlogin(request,pk):
+def partnerlogin(request, pk):
     try:
         partner_data = partner.objects.get(pk=pk)
-        print("partner data",partner_data)
-    except partner_data.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        print("partner data", partner_data)
+    except:
+        return Response({"data": "Phonenumber doesn't exists"},status=status.HTTP_404_NOT_FOUND)
+        # return Response({"data": "Phonenumber exists"})
 
     if request.method == 'GET':
-        serializer = partnerSerializer(partner_data)
-        return Response(serializer.data)
+        # try:
+            serializer = partnerSerializer(partner_data)
+            return Response(serializer.data)
+        # except:
+            
 
     elif request.method == 'PUT':
         serializer = partnerSerializer(partner_data, data=request.data)
@@ -59,8 +75,8 @@ def partnerlogin(request,pk):
     elif request.method == 'DELETE':
         print("inside delete")
         partner_data.delete()
-        return Response({'message': 'Data was deleted successfully!'},status=status.HTTP_204_NO_CONTENT)
-    
+        return Response({'message': 'Data was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+
 
 @api_view(['GET', 'POST'])
 def postimg(request):
@@ -75,7 +91,7 @@ def postimg(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+
 # @api_view(['GET', 'DELETE'])
 # def imgdata(request,post):
 #     try:
@@ -92,4 +108,3 @@ def postimg(request):
 #         print("inside delete")
 #         img_data.delete()
 #         return Response({'message': 'Data was deleted successfully!'},status=status.HTTP_204_NO_CONTENT)
-    

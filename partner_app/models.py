@@ -3,8 +3,9 @@ from phonenumber_field.formfields import PhoneNumberField
 from django.core.validators import RegexValidator
 
 ROLE_CHOICES = (
-	("Partner", "Partner"),
-	("Listed Partner", "Listed Partner"),
+	("Guest", "Guest"),
+	("Orbitor", "Orbitor"),
+	("Cosmonaut", "Cosmonaut"),
 )
 # Partner Model
 phone_regex = RegexValidator(regex=r'^(\+\d{1,3})?,?\s?\d{8,13}', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
@@ -13,7 +14,7 @@ class partner(models.Model):
     phonenumber = models.CharField(validators=[phone_regex], max_length=17, blank=True,primary_key=True) # Validators should be a list
     firstname=models.CharField(max_length=200)
     lastname=models.CharField(max_length=200)
-    role=models.CharField(choices=ROLE_CHOICES,default="Partner",max_length=60)
+    role=models.CharField(choices=ROLE_CHOICES,default="Orbitor",max_length=60)
     registeration= models.DateTimeField(auto_now_add=True)
     attendance=models.IntegerField(default=0)
     foodcounter=models.IntegerField(default=0)
