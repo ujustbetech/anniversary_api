@@ -4,7 +4,7 @@ from django.core.validators import RegexValidator
 
 ROLE_CHOICES = (
 	("Guest", "Guest"),
-	("Orbitor", "Orbitor"),
+	("Orbiter", "Orbiter"),
 	("Cosmonaut", "Cosmonaut"),
 )
 # Partner Model
